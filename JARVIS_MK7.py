@@ -1,5 +1,4 @@
 #takes query through voice for as long as you speak and gives response through voice as well as text (currently listens for 5 seconds)
-#Remembers previous conversations(saves all conversations in a text file which works as a virtual memory)
 #have features like stop listening and start listening
 #tells accurate time and date
 #more memory efficient(remembers useful data only)
