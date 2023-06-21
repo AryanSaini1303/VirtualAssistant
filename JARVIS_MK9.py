@@ -36,7 +36,7 @@ def responseProtocol(response):
         engine.say(response)
         engine.runAndWait()
 
-openai.api_key="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" 
+openai.api_key="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" 
 model_engine="text-davinci-003"
 engine = pyttsx3.init()#used to convert text to speech
 r = sr.Recognizer()#used to recognize voice and conver it to text
@@ -303,11 +303,5 @@ while True:
                     keyboard.press_and_release('volume up')
                     response=""
         responseProtocol(response)
-        if "remember this" in text or "remember that" in text:
-            with open('Conversation.txt', 'a') as file:
-                file.write(("\n"+"Jarvis: "+response+"\n\n"))
-        else:
-            with open("Conversation.txt",'r') as f:
-                lines=f.readlines()
-            with open("Conversation.txt",'w') as f:
-                f.writelines(lines[:-1])
+        with open('Conversation.txt', 'a') as file:
+            file.write(("\n"+"Jarvis: "+response+"\n\n"))

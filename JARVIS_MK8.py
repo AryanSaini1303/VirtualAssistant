@@ -36,7 +36,8 @@ def responseProtocol(response):
         engine.say(response)
         engine.runAndWait()
 
-openai.api_key="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" 
+openai.api_key="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" 
+
 model_engine="text-davinci-003"
 engine = pyttsx3.init()#used to convert text to speech
 r = sr.Recognizer()#used to recognize voice and conver it to text
