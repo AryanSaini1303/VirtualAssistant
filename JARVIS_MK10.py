@@ -61,17 +61,16 @@ date_pattern = r"\d{4}/\d{2}/\d{2}"#pattern to detect date in a string
 youtube = build('youtube', 'v3', developerKey="AIzaSyCqf5WsmtFlfL7PZhHH59diqC3KQ39Alvo")#used in playing videos on youtube
 nlp = spacy.load("en_core_web_lg")
 current_time = datetime.datetime.now().time()
-# if current_time.hour < 12:
-#     response="Good morning sir, How can i be of assistance?"
-#     responseProtocol(response)
-# elif 12 <= current_time.hour < 18:
-#     response="Good afternoon sir, How can i be of assistance?"
-#     responseProtocol(response)
-# else:
-#     response="Good evening sir, How can i be of assistance?"
-#     responseProtocol(response)
-# choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
-choice="t"
+if current_time.hour < 12:
+    response="Good morning sir, How can i be of assistance?"
+    responseProtocol(response)
+elif 12 <= current_time.hour < 18:
+    response="Good afternoon sir, How can i be of assistance?"
+    responseProtocol(response)
+else:
+    response="Good evening sir, How can i be of assistance?"
+    responseProtocol(response)
+choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
 
 #similarity strings
 closing1=nlp("thank you, goodbye jarvis")
@@ -82,7 +81,7 @@ startListening1=nlp("jarvis, start listening")
 startListening2=nlp("okay jarvis, wake up")
 openApps=nlp("jarvis, please open")
 searchFor=nlp("search for")
-setVolume=nlp("jarvis, set volume to")
+setVolume=nlp("jarvis, set volume to some percent")
 play=nlp("jarvis play the music")
 play1=nlp("pause song")
 pause=nlp("jarvis pause the music")
@@ -376,6 +375,8 @@ while True:
             words=text.split()
             if words[-1]=="percent" or words[-1]=="percentage":
                 words=words[:-1]
+            if words[-1][-1]=="%":
+                words[-1]=words[-1].replace("%",'')
             factor=int(words[-1])
             i=0
             for i in range(int(factor/2)):
