@@ -1,13 +1,13 @@
 #takes query through voice for as long as you speak and gives response through voice as well as text(listens for 5 seconds as of now)
 #have features like stop listening and start listening
 #tells accurate time and date
-#more memory efficient(remembers things which i tell him to remember)
 #takes input as voice as well as text
 #searches on google,flipkart,amazon,ajio,myntra,nykaa,youtube (default search engine is google)
 #plays videos on youtube
 #play,pause,mute,unmute,set volume to a specified level and also increase/decrease volume by a specified factor viz.10
 #plays next/previous track for spotify only
 #scroll up/down, close window
+#remembers conversation until it's closed so that i can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
 import pyttsx3
 import openai
 import speech_recognition as sr
@@ -35,6 +35,13 @@ def responseProtocol(response):
         print(response)
         engine.say(response)
         engine.runAndWait()
+
+#function to save all conversation
+def writeInMemory(text,response):
+    with open('Conversation.txt', 'a') as file:
+        file.write(('User:'+text))
+    with open('Conversation.txt', 'a') as file:
+        file.write(("\n"+"Jarvis: "+response+"\n\n"))
 
 openai.api_key="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" 
 model_engine="text-davinci-003"
@@ -78,13 +85,24 @@ while True:
     if "goodbye jarvis" in text.lower() or "good bye jarvis" in text.lower():
         response="i hope i was helpful, Until next time sir."
         responseProtocol(response)
+        writeInMemory(text,response)
+        with open("Conversation.txt","r") as f:
+            lines=f.readlines()
+        with open("Conversation.txt","w") as f:
+            i=0
+            while i<(len(lines)):
+                if lines[i].lower().strip().startswith("remember that") or lines[i].lower().strip().startswith("remember this") or lines[i].lower().strip().endswith("remember that") or lines[i].lower().strip().endswith("remember this") or  lines[i].lower().strip().startswith("jarvis remember that") or lines[i].lower().strip().startswith("jarvis remember this"):
+                    f.write(lines[i])
+                    f.write(lines[i+1]+"\n")
+                i+=1
         break
     elif "stop listening" in text.lower():
         response="Going to sleep mode"
         responseProtocol(response)
+        writeInMemory(text,response)
         while True:
             if choice=="t":
-                text=input("Enter query:")
+                text=input("\nEnter query:")
             else:
                 with sr.Microphone() as source:
                     print("\n"+"Say something!")
@@ -104,6 +122,7 @@ while True:
                 print("You said: ", text)
                 response="Coming back online"
                 responseProtocol(response)
+                writeInMemory(text,response)
                 break
             else:
                 continue
@@ -117,6 +136,7 @@ while True:
                 app="primevideo"
             response="Opening "+app
         responseProtocol(response)
+        writeInMemory(text,response)
         if app.lower()=="amazon":
             try:
                 subprocess.Popen([app+'.exe'])
@@ -152,26 +172,32 @@ while True:
             url = "https://www."+appName.lower()+".com/search?q=" + searchQuery
             response="Searching for "+searchQuery+" on "+appName
             responseProtocol(response)
+            writeInMemory(text,response)
         elif appName.lower()=="amazon":
             url = "https://www.amazon.in/s?k=" +searchQuery
             response="Searching for "+searchQuery+" on "+appName
             responseProtocol(response)
+            writeInMemory(text,response)
         elif appName.lower()=="myntra":
             url = "https://www.myntra.com/"+searchQuery+"?rawQuery="+searchQuery
             response="Searching for "+searchQuery+" on "+appName
             responseProtocol(response)
+            writeInMemory(text,response)
         elif appName.lower()=="ajio":
             url = "https://www.ajio.com/search/?text="+searchQuery
             response="Searching for "+searchQuery+" on "+appName
             responseProtocol(response)
+            writeInMemory(text,response)
         elif appName.lower()=="nykaa":
             url = "https://www.nykaa.com/search/result/?q="+searchQuery+"&root=search&searchType=Manual&sourcepage=Search+Page"
             response="Searching for "+searchQuery+" on "+appName
             responseProtocol(response)
+            writeInMemory(text,response)
         elif appName.lower()=="primevideo":
             url = "https://www.primevideo.com/search/ref=atv_nb_sug?ie=UTF8&phrase="+searchQuery
             response="Searching for "+searchQuery+" on "+appName
             responseProtocol(response)
+            writeInMemory(text,response)
         webbrowser.open_new_tab(url) 
     elif text.lower().startswith("play") and text.lower().endswith("youtube"):
         words=text.split()
@@ -187,6 +213,7 @@ while True:
             video_id = search_response['items'][0]['id']['videoId']
             url = f'https://www.youtube.com/watch?v={video_id}'
             responseProtocol(response)
+            writeInMemory(text,response)
             webbrowser.open(url)
         except HttpError as e:
             print('An error occurred:', e)
@@ -198,6 +225,7 @@ while True:
                     webbrowser.open(j)
             response="There are plenty of good videos, i think you should choose which one to watch."
             responseProtocol(response)
+            writeInMemory(text,response)
     elif text.lower()=="play" or text.lower()=="pause":
         pyautogui.press("playpause")
     elif "set volume" in text.lower() or "set the volume" in text.lower() or text.lower()=="mute" or text.lower()=="unmute":
@@ -264,6 +292,10 @@ while True:
         pyautogui.hotkey('f')
     elif "exit youtube fullscreen" in text.lower() or "close youtube fullscreen" in text.lower():
         pyautogui.hotkey('f')
+    elif text.lower().strip().startswith("remember that") or text.lower().strip().startswith("remember this") or text.lower().strip().endswith("remember that") or text.lower().strip().endswith("remember this") or  text.lower().strip().startswith("jarvis remember that") or text.lower().strip().startswith("jarvis remember this"):
+        response="okay i'll remember that."
+        responseProtocol(response)
+        writeInMemory(text,response)
     else:
         with open('Conversation.txt', 'a') as file:
             file.write(('User:'+text))

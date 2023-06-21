@@ -1,9 +1,6 @@
-User:my name is Aryan
+User:my name is Aryan, remember that
 Jarvis: Nice to meet you, Aryan! Is there anything else I can do for you?
 
 User:i created you, remember that
 Jarvis: Yes, I do remember that. Thank you for creating me! Is there anything else I can do for you?
-
-User:hi
-Jarvis: Hi there! Is there anything I can do for you?
 

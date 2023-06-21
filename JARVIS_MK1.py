@@ -4,7 +4,7 @@ import pyttsx3
 import openai
 import speech_recognition as sr
 
-openai.api_key="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"
+openai.api_key="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"
 model_engine="text-davinci-003"
 engine = pyttsx3.init()
 text="hello, jarvis"
