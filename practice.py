@@ -1,6 +1,17 @@
-with open("Conversation.txt","r") as f:
-    lines=f.readlines()
-    i=0
-    while i<len(lines):
-        print(lines[i])
-        i+=1
+import spacy
+
+nlp = spacy.load("en_core_web_lg")
+
+sentence1 = "thank you, goodbye jarvis"
+sentence2 = "good job goodbye jarvis"
+# sentence3="jarvis, please open youtube"
+
+doc1 = nlp(sentence1)
+doc2 = nlp(sentence2)
+# doc3=nlp(sentence3)
+
+# print(doc2.similarity(doc3))
+# print(doc1.similarity(doc3))
+print(doc1.similarity(doc2))
+
+
