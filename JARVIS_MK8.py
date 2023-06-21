@@ -60,7 +60,6 @@ while True:
         text=input("\n"+"Enter query:")
     else:
         with sr.Microphone() as source:
-
             playsound('./mixkit-click-error-1110.wav')
             print("\n"+"Say something!")
             audio=r.record(source,duration=5)
