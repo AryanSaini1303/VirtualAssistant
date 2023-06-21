@@ -191,10 +191,7 @@ while True:
                 webbrowser.open_new_tab(url)
             continue
     elif (nlp(text.lower())).similarity(searchFor)>=0.65:
-        # url=""#to clear the variable everytime iteration triggers
         appName=""
-        # searchQuery=""
-        # words=""
         words=text.lower().split()
         pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
         appList= re.findall(pattern, text)
