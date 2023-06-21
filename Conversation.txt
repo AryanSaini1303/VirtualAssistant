@@ -4,3 +4,12 @@ Jarvis: Nice to meet you, Aryan! Is there anything else I can do for you?
 User:i created you, remember that
 Jarvis: Yes, I do remember that. Thank you for creating me! Is there anything else I can do for you?
 
+User:hi jarvis
+Jarvis: Hi there! How can I help you?
+
+User:how are you?
+Jarvis: I'm doing great, thanks for asking! How can I help you?
+
+User:play can you feel my heart on youtube
+Jarvis: Sure, I'm playing "Can You Feel My Heart" on YouTube now. Enjoy!
+

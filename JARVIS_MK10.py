@@ -8,6 +8,7 @@
 #plays next/previous track for spotify only
 #scroll up/down, close window
 #remembers conversation until it's closed so that i can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
+#uses natural language processing to recognize the meaning of the sentence(no need to learn predefined commands)
 import pyttsx3
 import openai
 import speech_recognition as sr
@@ -82,7 +83,6 @@ startListening2=nlp("okay jarvis, wake up")
 openApps=nlp("jarvis, please open")
 searchFor=nlp("search for")
 setVolume=nlp("jarvis, set volume to")
-playOnYoutube=nlp("jarvis, play something on youtube")
 play=nlp("jarvis play the music")
 play1=nlp("pause song")
 pause=nlp("jarvis pause the music")
@@ -122,7 +122,7 @@ while True:
         except sr.RequestError as e:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             continue
-    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.7)) and ((nlp(text.lower())).similarity(startListening1)<0.75):
+    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77)) and ((nlp(text.lower())).similarity(startListening1)<0.75):
         response="i hope i was helpful, Until next time sir."
         responseProtocol(response)
         writeInMemory(text,response)
@@ -244,7 +244,7 @@ while True:
             responseProtocol(response)
             writeInMemory(text,response)
         webbrowser.open_new_tab(url) 
-    elif ((nlp(text.lower())).similarity(playOnYoutube)>=0.75) and (((nlp(text.lower())).similarity(play)<(nlp(text.lower())).similarity(playOnYoutube)) and ((nlp(text.lower())).similarity(pause)<((nlp(text.lower())).similarity(playOnYoutube)))):
+    elif text.lower().startswith("play") and text.lower().endswith("youtube"):
         start = text.lower().find("play")
         end = text.lower().find("on youtube")
         video_name = text.lower()[start+4:end].strip()

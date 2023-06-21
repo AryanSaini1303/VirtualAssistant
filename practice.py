@@ -2,8 +2,8 @@ import spacy
 
 nlp = spacy.load("en_core_web_lg")
 
-sentence1 = "thank you, goodbye jarvis"
-sentence2 = "good job goodbye jarvis"
+sentence1 = "goodbye jarvis"
+sentence2 = "okay goodbye jarvis"
 # sentence3="jarvis, please open youtube"
 
 doc1 = nlp(sentence1)
