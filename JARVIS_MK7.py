@@ -9,7 +9,7 @@ import speech_recognition as sr
 import datetime
 import re
 
-openai.api_key="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" 
+openai.api_key="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" 
 model_engine="text-davinci-003"
 engine = pyttsx3.init()
 r = sr.Recognizer()

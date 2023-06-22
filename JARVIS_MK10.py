@@ -1,15 +1,14 @@
 #takes query through voice for as long as you speak and gives response through voice as well as text(listens for 5 seconds as of now)
 #have features like stop listening and start listening
 #tells accurate time and date
-#takes input as voice as well as text
+#takes (nlp(text.lower()))ut as voice as well as text
 #searches on google,flipkart,amazon,ajio,myntra,nykaa,youtube (default search engine is google)
 #plays videos on youtube
 #play,pause,mute,unmute,set volume to a specified level and also increase/decrease volume by a specified factor viz.10
 #plays next/previous track for spotify only
 #scroll up/down, close window
 #remembers conversation until it's closed so that i can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
-#uses natural language processing 
-#determine the similarity between the actual and required sentence for a specific command(no need to learn predefined commands)
+#uses natural language processing to recognize the meaning of the sentence/(nlp(text.lower()))ut(no need to learn predefined commands)
 import pyttsx3
 import openai
 import speech_recognition as sr
@@ -71,27 +70,31 @@ elif 12 <= current_time.hour < 18:
 else:
     response="Good evening sir, How can i be of assistance?"
     responseProtocol(response)
-choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
+choice=input("Enter your mode of (nlp(text.lower()))ut 't' for text and ('v' or press enter) for voice: ")
 
 #similarity strings
 closing1=nlp("thank you, goodbye jarvis")
 closing2=nlp("bye")
 closing4=nlp("goodbye jarvis")
-stopListening1=nlp("jarvis,stop listening")
-startListening1=nlp("jarvis, start listening")
-startListening2=nlp("okay jarvis, wake up")
+stopListening1=nlp("jarvis stop listening")
+stopListening2=nlp("jarvis can you please stop listening for a bit")
+startListening1=nlp("jarvis start listening")
+startListening2=nlp("okay jarvis wake up")
 openApps=nlp("jarvis, please open")
 searchFor=nlp("search for")
+playOnYT=nlp("play on youtube")
 setVolume=nlp("jarvis, set volume to some percent")
 play=nlp("jarvis play the music")
-play1=nlp("pause song")
+play1=nlp("play song")
 pause=nlp("jarvis pause the music")
-pause2=nlp("play song")
 pause1=nlp("pause this")
+pause2=nlp("pause song")
 mute=nlp("jarvis mute the music")
 unmute=nlp("jarvis unmute the music")
 mute1=nlp("mute")
 unmute1=nlp("unmute")
+mute2=nlp("mute it")
+unmute2=nlp("unmute it")
 scroll=nlp("scroll up/down the content a bit")
 closeWindow=nlp("jarvis please close window")
 switchWindow=nlp("jarvis please switch the window")
@@ -122,6 +125,7 @@ while True:
         except sr.RequestError as e:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             continue
+    
     if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77)) and ((nlp(text.lower())).similarity(startListening1)<0.75):
         response="i hope i was helpful, Until next time sir."
         responseProtocol(response)
@@ -136,7 +140,7 @@ while True:
                     f.write(lines[i+1]+"\n")
                 i+=1
         break
-    elif ((nlp(text.lower())).similarity(stopListening1)>=0.75) and ((nlp(text.lower())).similarity(stopListening1)>(nlp(text.lower())).similarity(startListening1)):
+    elif ((nlp(text.lower())).similarity(stopListening1)>=0.75 or (nlp(text.lower())).similarity(stopListening2)>=0.75) and ((nlp(text.lower())).similarity(stopListening1)>(nlp(text.lower())).similarity(startListening1)):
         response="Going to sleep mode"
         responseProtocol(response)
         writeInMemory(text,response)
@@ -191,82 +195,6 @@ while True:
                 url='https://'+app+'.com'
                 webbrowser.open_new_tab(url)
             continue
-    elif (nlp(text.lower())).similarity(searchFor)>=0.65:
-        appName=""
-        words=text.lower().split()
-        pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
-        appList= re.findall(pattern, text)
-        for x in appList:
-            appName=x
-        words=words[2:]
-        if appName.lower()!="google" and appName.lower()!="flipkart" and appName.lower()!="youtube" and appName.lower()!="amazon" and appName.lower()!="myntra" and appName.lower()!="ajio" and appName.lower()!="nykaa"and appName.lower()!="primevideo" and appName.lower()!="video":
-            appName="google"
-            text=text+"on google"
-        if appName=="video":
-            text=text.lower().replace("prime video","primevideo")
-            appList=re.findall(pattern,text)
-            for x in appList:
-                appName=x
-        start_index=text.lower().index("for") + 4
-        end_index=text.lower().index("on "+appName)
-        searchQuery=text[start_index:end_index].strip()
-        if appName.lower()=="flipkart" or appName.lower()=="google" or appName.lower()=="youtube":
-            url = "https://www."+appName.lower()+".com/search?q=" + searchQuery
-            response="Searching for "+searchQuery+" on "+appName
-            responseProtocol(response)
-            writeInMemory(text,response)
-        elif appName.lower()=="amazon":
-            url = "https://www.amazon.in/s?k=" +searchQuery
-            response="Searching for "+searchQuery+" on "+appName
-            responseProtocol(response)
-            writeInMemory(text,response)
-        elif appName.lower()=="myntra":
-            url = "https://www.myntra.com/"+searchQuery+"?rawQuery="+searchQuery
-            response="Searching for "+searchQuery+" on "+appName
-            responseProtocol(response)
-            writeInMemory(text,response)
-        elif appName.lower()=="ajio":
-            url = "https://www.ajio.com/search/?text="+searchQuery
-            response="Searching for "+searchQuery+" on "+appName
-            responseProtocol(response)
-            writeInMemory(text,response)
-        elif appName.lower()=="nykaa":
-            url = "https://www.nykaa.com/search/result/?q="+searchQuery+"&root=search&searchType=Manual&sourcepage=Search+Page"
-            response="Searching for "+searchQuery+" on "+appName
-            responseProtocol(response)
-            writeInMemory(text,response)
-        elif appName.lower()=="primevideo":
-            url = "https://www.primevideo.com/search/ref=atv_nb_sug?ie=UTF8&phrase="+searchQuery
-            response="Searching for "+searchQuery+" on "+appName
-            responseProtocol(response)
-            writeInMemory(text,response)
-        webbrowser.open_new_tab(url) 
-    elif text.lower().startswith("play") and text.lower().endswith("youtube"):
-        start = text.lower().find("play")
-        end = text.lower().find("on youtube")
-        video_name = text.lower()[start+4:end].strip()
-        try:
-            # search for videos matching the video name
-            search_response = youtube.search().list(q=video_name, part='id,snippet', maxResults=1).execute()
-            video_title=search_response['items'][0]['snippet']['title']
-            response="Playing "+str(video_title)+" on youtube"
-            # extract the video ID of the first result
-            video_id = search_response['items'][0]['id']['videoId']
-            url = f'https://www.youtube.com/watch?v={video_id}'
-            responseProtocol(response)
-            writeInMemory(text,response)
-            webbrowser.open(url)
-        except HttpError as e:
-            print('An error occurred:', e)
-            url = None
-        except KeyError:
-            video_name += 'site:youtube.com' 
-            for j in search(video_name,stop=1):        
-                if 'youtube.com' in j:
-                    webbrowser.open(j)
-            response="There are plenty of good videos, i think you should choose which one to watch."
-            responseProtocol(response)
-            writeInMemory(text,response)
     elif "play next track" in text.lower() or "play the next track" in text.lower() or "play previous track" in text.lower() or "play the previous track" in text.lower() or "play next song" in text.lower() or "play the next song" in text.lower() or "play previous song" in text.lower() or "play the previous song" in text.lower():#works only for spotify
         if "previous" in text.lower():
             sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
@@ -307,7 +235,7 @@ while True:
         else:
             factor=int((-1)*((level-newLevel)/2))                
             pyautogui.press('volumeup', presses=factor)
-    elif (nlp(text.lower())).similarity(mute)>=0.75 or (nlp(text.lower())).similarity(unmute)>=0.75 or (nlp(text.lower())).similarity(mute1)>=0.75 or (nlp(text.lower())).similarity(unmute1)>=0.75:
+    elif (nlp(text.lower())).similarity(mute)>=0.75 or (nlp(text.lower())).similarity(unmute)>=0.75 or (nlp(text.lower())).similarity(mute1)>=0.75 or (nlp(text.lower())).similarity(unmute1)>=0.75 or (nlp(text.lower())).similarity(mute2)>=0.75 or (nlp(text.lower())).similarity(unmute2)>=0.75:
         devices = AudioUtilities.GetSpeakers()
         interface = devices.Activate(
             IAudioEndpointVolume._iid_, 
@@ -383,6 +311,72 @@ while True:
                     keyboard.press_and_release('volume up')
                 i+=1
             response=""
+        elif "searching for" in response.lower() and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower()):
+            appName=""
+            words=text.lower().split()
+            pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
+            appList= re.findall(pattern, text)
+            for x in appList:
+                appName=x
+            words=words[2:]
+            if appName=="video":
+                text=text.lower().replace("prime video","primevideo")
+                appList=re.findall(pattern,text)
+                for x in appList:
+                    appName=x
+            start_index=text.lower().index("for") + 4
+            end_index=text.lower().index("on "+appName)
+            searchQuery=text[start_index:end_index].strip()
+            if appName.lower()=="flipkart" or appName.lower()=="google" or appName.lower()=="youtube":
+                url = "https://www."+appName.lower()+".com/search?q=" + searchQuery
+                response="Searching for "+searchQuery+" on "+appName
+                writeInMemory(text,response)
+            elif appName.lower()=="amazon":
+                url = "https://www.amazon.in/s?k=" +searchQuery
+                response="Searching for "+searchQuery+" on "+appName
+                writeInMemory(text,response)
+            elif appName.lower()=="myntra":
+                url = "https://www.myntra.com/"+searchQuery+"?rawQuery="+searchQuery
+                response="Searching for "+searchQuery+" on "+appName
+                writeInMemory(text,response)
+            elif appName.lower()=="ajio":
+                url = "https://www.ajio.com/search/?text="+searchQuery
+                response="Searching for "+searchQuery+" on "+appName
+                writeInMemory(text,response)
+            elif appName.lower()=="nykaa":
+                url = "https://www.nykaa.com/search/result/?q="+searchQuery+"&root=search&searchType=Manual&sourcepage=Search+Page"
+                response="Searching for "+searchQuery+" on "+appName
+                writeInMemory(text,response)
+            elif appName.lower()=="primevideo":
+                url = "https://www.primevideo.com/search/ref=atv_nb_sug?ie=UTF8&phrase="+searchQuery
+                response="Searching for "+searchQuery+" on "+appName
+                writeInMemory(text,response)
+            webbrowser.open_new_tab(url) 
+        elif "playing" in response.lower() and "on youtube" in response.lower():
+            start = text.lower().find("play")
+            end = text.lower().find("on youtube")
+            video_name = text.lower()[start+4:end].strip()
+            try:
+                # search for videos matching the video name
+                search_response = youtube.search().list(q=video_name, part='id,snippet', maxResults=1).execute()
+                video_title=search_response['items'][0]['snippet']['title']
+                response="Playing "+str(video_title)+" on youtube"
+                # extract the video ID of the first result
+                video_id = search_response['items'][0]['id']['videoId']
+                url = f'https://www.youtube.com/watch?v={video_id}'
+                responseProtocol(response)
+                writeInMemory(text,response)
+                webbrowser.open(url)
+            except HttpError as e:
+                print('An error occurred:', e)
+                url = None
+            except KeyError:
+                video_name += 'site:youtube.com' 
+                for j in search(video_name,stop=1):        
+                    if 'youtube.com' in j:
+                        webbrowser.open(j)
+                response="There are plenty of good videos, i think you should choose which one to watch."
+                writeInMemory(text,response)
         responseProtocol(response)
         with open('Conversation.txt', 'a') as file:
             file.write(("\n"+"Jarvis: "+response+"\n\n"))
