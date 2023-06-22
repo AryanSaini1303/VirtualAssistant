@@ -8,7 +8,8 @@
 #plays next/previous track for spotify only
 #scroll up/down, close window
 #remembers conversation until it's closed so that i can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
-#uses natural language processing to recognize the meaning of the sentence(no need to learn predefined commands)
+#uses natural language processing 
+#determine the similarity between the actual and required sentence for a specific command(no need to learn predefined commands)
 import pyttsx3
 import openai
 import speech_recognition as sr
