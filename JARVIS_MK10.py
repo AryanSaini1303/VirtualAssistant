@@ -282,8 +282,7 @@ while True:
             scope="user-read-playback-state,user-modify-playback-state"))
             sp.next_track()
     elif (((nlp(text.lower())).similarity(play)>=0.7) or ((nlp(text.lower())).similarity(pause)>=0.7) or ((nlp(text.lower())).similarity(pause1)>=0.7) or ((nlp(text.lower())).similarity(play1)>=0.7) or ((nlp(text.lower())).similarity(pause2)>=0.7)) and (((nlp(text.lower())).similarity(mute)<(nlp(text.lower())).similarity(play)) or ((nlp(text.lower())).similarity(unmute)<(nlp(text.lower())).similarity(pause))):
-        # pyautogui.press("playpause")
-        print("hello")
+        pyautogui.press("playpause")
     elif (nlp(text.lower())).similarity(setVolume)>=0.6 and ((nlp(text.lower())).similarity(switchWindow)<(nlp(text.lower())).similarity(setVolume)):
         words=text.split()
         if words[-1].lower()=="percent" or words[-1].lower()=="percentage" or words[-1].lower()=="%":
