@@ -14,3 +14,6 @@
 # # print(doc1.similarity(doc3))
 # print(doc1.similarity(doc2))
 
+response="Sure, I can do that. I found Mankha Musa I, also known as Mansa Musa, was the tenth Mansa of the Mali Empire in the 14th century. Is there anything else I can do for you?"
+if "sure, i can do that." in response.lower():
+    print("hello")

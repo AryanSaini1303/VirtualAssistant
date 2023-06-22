@@ -75,6 +75,7 @@ choice=input("Enter your mode of input 't' for text and ('v' or press enter) for
 #similarity strings
 closing1=nlp("thank you, goodbye jarvis")
 closing2=nlp("bye")
+closing3=nlp("close jarvis")
 closing4=nlp("goodbye jarvis")
 stopListening1=nlp("jarvis stop listening")
 stopListening2=nlp("jarvis can you please stop listening for a bit")
@@ -126,7 +127,7 @@ while True:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             continue
     
-    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77)) and ((nlp(text.lower())).similarity(startListening1)<0.75):
+    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77) or ((nlp(text.lower())).similarity(closing3)>=0.7)) and ((nlp(text.lower())).similarity(startListening1)<0.75):
         response="i hope i was helpful, Until next time sir."
         responseProtocol(response)
         writeInMemory(text,response)
@@ -311,7 +312,7 @@ while True:
                     keyboard.press_and_release('volume up')
                 i+=1
             response=""
-        elif "searching for" in response.lower() and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower()):
+        elif (("searching for" in response.lower()) and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower())) or ("search for"in text.lower() and "on google" in text.lower()):
             appName=""
             words=text.lower().split()
             pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
