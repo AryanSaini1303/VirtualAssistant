@@ -1,14 +1,14 @@
 #takes query through voice for as long as you speak and gives response through voice as well as text(listens for 5 seconds as of now)
 #have features like stop listening and start listening
 #tells accurate time and date
-#takes (nlp(text.lower()))ut as voice as well as text
+#takes input as voice as well as text
 #searches on google,flipkart,amazon,ajio,myntra,nykaa,youtube (default search engine is google)
 #plays videos on youtube
 #play,pause,mute,unmute,set volume to a specified level and also increase/decrease volume by a specified factor viz.10
 #plays next/previous track for spotify only
 #scroll up/down, close window
 #remembers conversation until it's closed so that i can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
-#uses natural language processing to recognize the meaning of the sentence/(nlp(text.lower()))ut(no need to learn predefined commands)
+#uses natural language processing to recognize the meaning of the sentence/input(no need to learn predefined commands)
 import pyttsx3
 import openai
 import speech_recognition as sr
@@ -70,7 +70,7 @@ elif 12 <= current_time.hour < 18:
 else:
     response="Good evening sir, How can i be of assistance?"
     responseProtocol(response)
-choice=input("Enter your mode of (nlp(text.lower()))ut 't' for text and ('v' or press enter) for voice: ")
+choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
 
 #similarity strings
 closing1=nlp("thank you, goodbye jarvis")
