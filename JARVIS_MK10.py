@@ -78,7 +78,7 @@ closing2=nlp("bye")
 closing3=nlp("close jarvis")
 closing4=nlp("goodbye jarvis")
 stopListening1=nlp("jarvis stop listening")
-stopListening2=nlp("jarvis can you please stop listening for a bit")
+stopListening2=nlp("jarvis stop listening for a bit")
 startListening1=nlp("jarvis start listening")
 startListening2=nlp("okay jarvis wake up")
 openApps=nlp("jarvis, please open")
@@ -102,8 +102,9 @@ switchWindow=nlp("jarvis please switch the window")
 switchtab=nlp("jarvis please switch tab")
 showAllTabs=nlp("show all my the tabs")
 lock=nlp("lock my desktop jarvis")
-ytFullscreen=nlp("play youtube video on fullscreen")
+ytFullscreen=nlp("play video on fullscreen")
 ytFullscreen1=nlp("make youtube video fullscreen")
+ytFullscreen2=nlp("youtube fullscreen")
 exitYTFullscreen=nlp("exit youtube fullscreen")
 
 while True:
@@ -111,8 +112,8 @@ while True:
         text=input("\n"+"Enter query:")
     else:
         with sr.Microphone() as source:
-            playsound('./mixkit-click-error-1110.wav')
             print("\n"+"Say something!")
+            playsound('./mixkit-click-error-1110.wav')
             audio=r.record(source,duration=5)
             # r.pause_threshold=0.8#seconds
             # r.adjust_for_ambient_noise(source)
@@ -265,7 +266,7 @@ while True:
         pyautogui.hotkey("win","tab")
     elif (nlp(text.lower())).similarity(lock)>0.75:
         os.system("rundll32.exe user32.dll, LockWorkStation")
-    elif (nlp(text.lower())).similarity(ytFullscreen)>0.8 or (nlp(text.lower())).similarity(ytFullscreen1)>0.8 or (nlp(text.lower())).similarity(exitYTFullscreen)>0.75:
+    elif (nlp(text.lower())).similarity(ytFullscreen)>0.8 or (nlp(text.lower())).similarity(ytFullscreen1)>0.8 or (nlp(text.lower())).similarity(exitYTFullscreen)>0.75 or (nlp(text.lower())).similarity(ytFullscreen2)>0.75:
         pyautogui.hotkey('f')
     elif text.lower().strip().startswith("remember that") or text.lower().strip().startswith("remember this") or text.lower().strip().endswith("remember that") or text.lower().strip().endswith("remember this") or  text.lower().strip().startswith("jarvis remember that") or text.lower().strip().startswith("jarvis remember this"):
         response="okay i'll remember that."
@@ -316,7 +317,7 @@ while True:
             appName=""
             words=text.lower().split()
             pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
-            appList= re.findall(pattern, text)
+            appList= re.findall(pattern, text.lower())
             for x in appList:
                 appName=x
             words=words[2:]
