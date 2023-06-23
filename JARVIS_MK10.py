@@ -128,7 +128,7 @@ while True:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             continue
     
-    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77) or ((nlp(text.lower())).similarity(closing3)>=0.7)) and ((nlp(text.lower())).similarity(startListening1)<0.75):
+    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77) or ((nlp(text.lower())).similarity(closing3)>=0.7)) and ((nlp(text.lower())).similarity(startListening1)<0.75 and ((nlp(text.lower()).similarity(closing3))>nlp(text.lower()).similarity(closeWindow))):
         response="i hope i was helpful, Until next time sir."
         responseProtocol(response)
         writeInMemory(text,response)
