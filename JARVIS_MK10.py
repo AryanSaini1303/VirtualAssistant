@@ -7,8 +7,10 @@
 #play,pause,mute,unmute,set volume to a specified level and also increase/decrease volume by a specified factor viz.10
 #plays next/previous track for spotify only
 #scroll up/down, close window
-#remembers conversation until it's closed so that i can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
+#remembers conversation until it's closed so that it can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
 #uses natural language processing to recognize the meaning of the sentence/input(no need to learn predefined commands)
+
+#importing all the libraries
 import pyttsx3
 import openai
 import speech_recognition as sr
@@ -51,15 +53,14 @@ def writeInMemory(text,response):
         except UnicodeEncodeError:
             file.write("\n"+"Jarvis: "+"\n\n")
 
-
 openai.api_key="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" 
 model_engine="text-davinci-003"
 engine = pyttsx3.init()#used to convert text to speech
 r = sr.Recognizer()#used to recognize voice and conver it to text
-time_pattern = re.compile(r'\b(1[012]|[1-9]):([0-5][0-9]) ([AP]M)\b')#pattern to detect time in a string
-date_pattern = r"\d{4}/\d{2}/\d{2}"#pattern to detect date in a string
 youtube = build('youtube', 'v3', developerKey="AIzaSyCqf5WsmtFlfL7PZhHH59diqC3KQ39Alvo")#used in playing videos on youtube
-nlp = spacy.load("en_core_web_lg")
+nlp = spacy.load("en_core_web_lg")#used in natural language processing
+
+#inital greeting
 current_time = datetime.datetime.now().time()
 if current_time.hour < 12:
     response="Good morning sir, How can i be of assistance?"
@@ -70,8 +71,7 @@ elif 12 <= current_time.hour < 18:
 else:
     response="Good evening sir, How can i be of assistance?"
     responseProtocol(response)
-choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
-
+    
 #similarity strings
 closing1=nlp("thank you, goodbye jarvis")
 closing2=nlp("bye")
@@ -111,7 +111,12 @@ date=nlp("what date is it?")
 time1=nlp("tell me the time")
 date1=nlp("tell me the date")
 
+# choose input as text or voice
+choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
+
+#main loop starts
 while True:
+    # checks for the mode of input
     if choice=="t":
         text=input("\n"+"Enter query:")
     else:
@@ -132,6 +137,7 @@ while True:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
             continue
     
+    # deciding output based on different inputs i.e text
     if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77) or ((nlp(text.lower())).similarity(closing3)>=0.7)) and ((nlp(text.lower())).similarity(startListening1)<0.75 and ((nlp(text.lower()).similarity(closing3))>nlp(text.lower()).similarity(closeWindow))):
         response="i hope i was helpful, Until next time sir."
         responseProtocol(response)
@@ -305,6 +311,8 @@ while True:
         if "Jarvis:" in words:
             words.remove("Jarvis:")
         response=" ".join(words)
+        
+        #deciding output based on different responses by the model i.e. response
         if "volume decreased by " in response.lower() or "volume increased by " in response.lower() or "increasing volume by " in response.lower() or "decreasing volume by " in response.lower() or "volume has been decreased by " in response.lower() or "volume has been increased by " in response.lower():
             words=text.split()
             if words[-1]=="percent" or words[-1]=="percentage":
@@ -386,6 +394,7 @@ while True:
                         webbrowser.open(j)
                 response="There are plenty of good videos, i think you should choose which one to watch."
                 writeInMemory(text,response)
+                
         responseProtocol(response)
         with open('Conversation.txt', 'a') as file:
             file.write(("\n"+"Jarvis: "+response+"\n\n"))
