@@ -77,6 +77,7 @@ closing1=nlp("thank you, goodbye jarvis")
 closing2=nlp("bye")
 closing3=nlp("close jarvis")
 closing4=nlp("goodbye jarvis")
+closing5=nlp("that's all for now, goodbye jarvis")
 stopListening1=nlp("jarvis stop listening")
 stopListening2=nlp("jarvis stop listening for a bit")
 startListening1=nlp("jarvis start listening")
@@ -138,7 +139,7 @@ while True:
             continue
     
     # deciding output based on different inputs i.e text
-    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77) or ((nlp(text.lower())).similarity(closing3)>=0.7)) and ((nlp(text.lower())).similarity(startListening1)<0.75 and ((nlp(text.lower()).similarity(closing3))>nlp(text.lower()).similarity(closeWindow))):
+    if (((nlp(text.lower())).similarity(closing1)>=0.7) or ((nlp(text.lower())).similarity(closing2)>=0.7)or ((nlp(text.lower())).similarity(closing4)>=0.77) or ((nlp(text.lower())).similarity(closing3)>=0.7) or ((nlp(text.lower())).similarity(closing5)>=0.7)) and ((nlp(text.lower())).similarity(startListening1)<0.75 and ((nlp(text.lower()).similarity(closing3))>nlp(text.lower()).similarity(closeWindow))):
         response="i hope i was helpful, Until next time sir."
         responseProtocol(response)
         writeInMemory(text,response)
