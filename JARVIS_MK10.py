@@ -106,6 +106,10 @@ ytFullscreen=nlp("play video on fullscreen")
 ytFullscreen1=nlp("make youtube video fullscreen")
 ytFullscreen2=nlp("youtube fullscreen")
 exitYTFullscreen=nlp("exit youtube fullscreen")
+time=nlp("what time is it?")
+date=nlp("what date is it?")
+time1=nlp("tell me the time")
+date1=nlp("tell me the date")
 
 while True:
     if choice=="t":
@@ -142,6 +146,17 @@ while True:
                     f.write(lines[i+1]+"\n")
                 i+=1
         break
+    elif(nlp(text.lower()).similarity(time)>0.7 or nlp(text.lower()).similarity(date)>0.7 or nlp(text.lower()).similarity(time1)>0.7 or nlp(text.lower()).similarity(date1)>0.7):
+        if "time" in text.lower():
+            current_time=datetime.datetime.now().strftime("%I:%M %p")
+            response="It's "+current_time
+            responseProtocol(response)
+            writeInMemory(text,response)
+        elif "date" in text.lower():
+            current_date=datetime.date.today()
+            response="Today is "+str(current_date)
+            responseProtocol()
+            writeInMemory()
     elif ((nlp(text.lower())).similarity(stopListening1)>=0.75 or (nlp(text.lower())).similarity(stopListening2)>=0.75) and ((nlp(text.lower())).similarity(stopListening1)>(nlp(text.lower())).similarity(startListening1)):
         response="Going to sleep mode"
         responseProtocol(response)
@@ -290,15 +305,7 @@ while True:
         if "Jarvis:" in words:
             words.remove("Jarvis:")
         response=" ".join(words)
-        matchTime=time_pattern.search(response)
-        matchDate=re.search(date_pattern,response)
-        if matchTime:
-            current_time=datetime.datetime.now().strftime("%I:%M %p")
-            response="It's "+current_time
-        elif matchDate:
-            current_date=datetime.date.today()
-            response="Today is "+str(current_date)
-        elif "volume decreased by " in response.lower() or "volume increased by " in response.lower() or "increasing volume by " in response.lower() or "decreasing volume by " in response.lower() or "volume has been decreased by " in response.lower() or "volume has been increased by " in response.lower():
+        if "volume decreased by " in response.lower() or "volume increased by " in response.lower() or "increasing volume by " in response.lower() or "decreasing volume by " in response.lower() or "volume has been decreased by " in response.lower() or "volume has been increased by " in response.lower():
             words=text.split()
             if words[-1]=="percent" or words[-1]=="percentage":
                 words=words[:-1]
