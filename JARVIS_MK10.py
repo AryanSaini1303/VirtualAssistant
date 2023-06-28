@@ -236,7 +236,7 @@ while True:
             redirect_uri="http://localhost:8080",
             scope="user-read-playback-state,user-modify-playback-state"))
             sp.next_track()
-    elif (((nlp(text.lower())).similarity(play)>=0.7) or ((nlp(text.lower())).similarity(pause)>=0.7) or ((nlp(text.lower())).similarity(pause1)>=0.7) or ((nlp(text.lower())).similarity(play1)>=0.7) or ((nlp(text.lower())).similarity(pause2)>=0.7)) and (((nlp(text.lower())).similarity(mute)<(nlp(text.lower())).similarity(play)) or ((nlp(text.lower())).similarity(unmute)<(nlp(text.lower())).similarity(pause))) and ("play" in text.lower() or "pause" in text.lower()):
+    elif (((nlp(text.lower())).similarity(play)>=0.7) or ((nlp(text.lower())).similarity(pause)>=0.7) or ((nlp(text.lower())).similarity(pause1)>=0.7) or ((nlp(text.lower())).similarity(play1)>=0.7) or ((nlp(text.lower())).similarity(pause2)>=0.7)) and (((nlp(text.lower())).similarity(mute)<(nlp(text.lower())).similarity(play)) or ((nlp(text.lower())).similarity(unmute)<(nlp(text.lower())).similarity(pause))) and ("play" in text.lower() or "pause" in text.lower()) and ("youtube" not in text.lower()):
         pyautogui.press("playpause")
     elif (nlp(text.lower())).similarity(setVolume)>=0.7 and ((nlp(text.lower())).similarity(switchWindow)<(nlp(text.lower())).similarity(setVolume)) and ("volume" in text.lower()):
         words=text.split()
@@ -289,7 +289,7 @@ while True:
         pyautogui.hotkey("win","tab")
     elif (nlp(text.lower())).similarity(lock)>0.75 and ("lock" in text.lower()):
         os.system("rundll32.exe user32.dll, LockWorkStation")
-    elif (nlp(text.lower())).similarity(ytFullscreen)>0.8 or (nlp(text.lower())).similarity(ytFullscreen1)>0.8 or (nlp(text.lower())).similarity(exitYTFullscreen)>0.75 or (nlp(text.lower())).similarity(ytFullscreen2)>0.75 and ("fullscreen" in text.lower() or "full screen" in text.lower()):
+    elif ((nlp(text.lower())).similarity(ytFullscreen)>0.8 or (nlp(text.lower())).similarity(ytFullscreen1)>0.8 or (nlp(text.lower())).similarity(exitYTFullscreen)>0.75 or (nlp(text.lower())).similarity(ytFullscreen2)>0.75) and ("fullscreen" in text.lower() or "full screen" in text.lower()):
         pyautogui.hotkey('f')
     elif text.lower().strip().startswith("remember that") or text.lower().strip().startswith("remember this") or text.lower().strip().endswith("remember that") or text.lower().strip().endswith("remember this") or  text.lower().strip().startswith("jarvis remember that") or text.lower().strip().startswith("jarvis remember this"):
         response="okay i'll remember that."
