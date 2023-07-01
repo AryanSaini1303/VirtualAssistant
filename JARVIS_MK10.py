@@ -103,6 +103,7 @@ switchWindow=nlp("jarvis please switch the window")
 switchtab=nlp("jarvis please switch tab")
 showAllTabs=nlp("show all my the tabs")
 lock=nlp("lock my desktop jarvis")
+lock1=nlp("lock my workstation jarvis")
 ytFullscreen=nlp("play video on fullscreen")
 ytFullscreen1=nlp("make youtube video fullscreen")
 ytFullscreen2=nlp("youtube fullscreen")
@@ -287,7 +288,7 @@ while True:
         pyautogui.hotkey('ctrl', 'tab')
     elif (nlp(text.lower())).similarity(showAllTabs)>0.75 and ("show" in text.lower()):
         pyautogui.hotkey("win","tab")
-    elif (nlp(text.lower())).similarity(lock)>0.75 and ("lock" in text.lower()):
+    elif ((nlp(text.lower())).similarity(lock)>0.75 or (nlp(text.lower())).similarity(lock1)>0.75) and ("lock" in text.lower()):
         os.system("rundll32.exe user32.dll, LockWorkStation")
     elif ((nlp(text.lower())).similarity(ytFullscreen)>0.8 or (nlp(text.lower())).similarity(ytFullscreen1)>0.8 or (nlp(text.lower())).similarity(exitYTFullscreen)>0.75 or (nlp(text.lower())).similarity(ytFullscreen2)>0.75) and ("fullscreen" in text.lower() or "full screen" in text.lower()):
         pyautogui.hotkey('f')
