@@ -85,7 +85,8 @@ startListening2=nlp("okay jarvis wake up")
 openApps=nlp("jarvis, please open")
 searchFor=nlp("search for")
 playOnYT=nlp("play on youtube")
-setVolume=nlp("jarvis, set volume to this percent")
+setVolume=nlp("jarvis, set volume to some percent")
+setVolume1=nlp("set volume to some %")
 play=nlp("jarvis play the music")
 play1=nlp("play song")
 pause=nlp("jarvis pause the music")
@@ -239,13 +240,14 @@ while True:
             sp.next_track()
     elif (((nlp(text.lower())).similarity(play)>=0.7) or ((nlp(text.lower())).similarity(pause)>=0.7) or ((nlp(text.lower())).similarity(pause1)>=0.7) or ((nlp(text.lower())).similarity(play1)>=0.7) or ((nlp(text.lower())).similarity(pause2)>=0.7)) and (((nlp(text.lower())).similarity(mute)<(nlp(text.lower())).similarity(play)) or ((nlp(text.lower())).similarity(unmute)<(nlp(text.lower())).similarity(pause))) and ("play" in text.lower() or "pause" in text.lower()) and ("youtube" not in text.lower()):
         pyautogui.press("playpause")
-    elif (nlp(text.lower())).similarity(setVolume)>=0.7 and ((nlp(text.lower())).similarity(switchWindow)<(nlp(text.lower())).similarity(setVolume)) and ("volume" in text.lower()):
+    elif ((nlp(text.lower())).similarity(setVolume)>=0.7 or (nlp(text.lower())).similarity(setVolume1)>=0.7) and ((nlp(text.lower())).similarity(switchWindow)<(nlp(text.lower())).similarity(setVolume)) and ("volume" in text.lower()):
         words=text.split()
         if words[-1].lower()=="percent" or words[-1].lower()=="percentage" or words[-1].lower()=="%":
             words=words[:-1]
         if words[-1][-1].lower()=="%":
             words[-1]=words[-1][:-1]
         newLevel=int(words[-1])
+        print(newLevel)
         devices = AudioUtilities.GetSpeakers()
         interface = devices.Activate(
             IAudioEndpointVolume._iid_, 
