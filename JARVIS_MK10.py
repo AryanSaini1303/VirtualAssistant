@@ -6,7 +6,7 @@
 #plays videos on youtube
 #play,pause,mute,unmute,set volume to a specified level and also increase/decrease volume by a specified factor viz.10
 #plays next/previous track for spotify
-#scroll up/down, close window
+#scrolls up/down, close window
 #remembers conversation until it's closed so that it can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
 #uses natural language processing to recognize the meaning of the sentence/input(no need to learn predefined commands)
 
