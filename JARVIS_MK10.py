@@ -127,11 +127,11 @@ while True:
     else:
         with sr.Microphone() as source:
             print("\n"+"Say something!")
-            playsound('./mixkit-click-error-1110.wav')
-            audio=r.record(source,duration=5)
-            # r.pause_threshold=0.8#seconds
-            # r.adjust_for_ambient_noise(source)
-            # audio = r.listen(source)
+            playsound("./mixkit-click-error-1110.wav")
+            # audio=r.record(source,duration=5)
+            r.pause_threshold=0.8#seconds
+            r.adjust_for_ambient_noise(source)
+            audio = r.listen(source)
         try:
             text = r.recognize_google(audio,language='en-IN')
             print("You said: ", text)
@@ -178,10 +178,10 @@ while True:
             else:
                 with sr.Microphone() as source:
                     print("\n"+"Say something!")
-                    audio=r.record(source,duration=5)
-                    # r.pause_threshold=0.8#seconds
-                    # r.adjust_for_ambient_noise(source)
-                    # audio = r.listen(source)
+                    # audio=r.record(source,duration=5)
+                    r.pause_threshold=0.8#seconds
+                    r.adjust_for_ambient_noise(source)
+                    audio = r.listen(source)
                 try:
                     text = r.recognize_google(audio,language='en-IN')
                 except sr.UnknownValueError:
