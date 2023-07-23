@@ -53,7 +53,7 @@ def writeInMemory(text,response):
         except UnicodeEncodeError:
             file.write("\n"+"Jarvis: "+"\n\n")
 
-openai.api_key="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" 
+openai.api_key="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" 
 model_engine="text-davinci-003"
 engine = pyttsx3.init()#used to convert text to speech
 r = sr.Recognizer()#used to recognize voice and conver it to text
@@ -247,7 +247,7 @@ while True:
         if words[-1][-1].lower()=="%":
             words[-1]=words[-1][:-1]
         newLevel=int(words[-1])
-        print(newLevel)
+        # print(newLevel)
         devices = AudioUtilities.GetSpeakers()
         interface = devices.Activate(
             IAudioEndpointVolume._iid_, 
@@ -333,7 +333,7 @@ while True:
                     keyboard.press_and_release('volume up')
                 i+=1
             response=""
-        elif (("searching for" in response.lower()) and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower())) or ("search for"in text.lower() and "on google" in text.lower()):
+        elif (("searching for" in response.lower()) and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower())) and ("search for"in text.lower() and "on google" in text.lower()):
             appName=""
             words=text.lower().split()
             pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
