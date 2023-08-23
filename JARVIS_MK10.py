@@ -1,4 +1,4 @@
-#takes query through voice for as long as you speak and gives response through voice as well as text(listens for 5 seconds as of now)
+#takes query through voice for as long as you speak and gives response through voice as well as text
 #have features like stop listening and start listening
 #tells accurate time and date
 #takes input as voice as well as text
@@ -9,6 +9,7 @@
 #scrolls up/down, close window
 #remembers conversation until it's closed so that it can take references from past conversation to answer and once the program is closed, it erases all the conversation except the one which is important(the one which is instructed to remember)
 #uses natural language processing to recognize the meaning of the sentence/input(no need to learn predefined commands)
+#switches between text to input and voice to input modes dynamically
 
 #importing all the libraries
 import pyttsx3
@@ -115,6 +116,10 @@ time1=nlp("tell me the time")
 date1=nlp("tell me the date")
 increaseVolume=nlp("volume increased by ")
 decreaseVolume=nlp("volume decreased by ")
+changeMode1=nlp("jarvis switch to text to input mode")
+changeMode2=nlp("jarvis switch to voice to input mode")
+changeMode3=nlp("jarvis take input as text")
+changeMode4=nlp("jarvis take input as voice")
 
 # choose input as text or voice
 choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
@@ -247,7 +252,6 @@ while True:
         if words[-1][-1].lower()=="%":
             words[-1]=words[-1][:-1]
         newLevel=int(words[-1])
-        # print(newLevel)
         devices = AudioUtilities.GetSpeakers()
         interface = devices.Activate(
             IAudioEndpointVolume._iid_, 
@@ -298,6 +302,15 @@ while True:
         response="okay i'll remember that."
         responseProtocol(response)
         writeInMemory(text,response)
+    elif ((nlp(text.lower())).similarity(changeMode1)>0.75 or (nlp(text.lower())).similarity(changeMode2)>0.75 or (nlp(text.lower())).similarity(changeMode3)>0.75 or (nlp(text.lower())).similarity(changeMode4)>0.75):
+        if "voice" in text.lower():
+            choice="v"
+            response="switching to voice to input mode"
+            responseProtocol(response)
+        elif "text" in text.lower():
+            choice="t"
+            response="switching to text to input mode"
+            responseProtocol(response)
     else:
         with open('Conversation.txt', 'a') as file:
             file.write(('User:'+text))
@@ -333,7 +346,7 @@ while True:
                     keyboard.press_and_release('volume up')
                 i+=1
             response=""
-        elif (("searching for" in response.lower()) and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower())) and ("search for"in text.lower() and "on google" in text.lower()):
+        elif (("searching for" in response.lower()) and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower())) and ("search for"in text.lower()):
             appName=""
             words=text.lower().split()
             pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
