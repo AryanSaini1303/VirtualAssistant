@@ -120,6 +120,8 @@ changeMode1=nlp("jarvis switch to text to input mode")
 changeMode2=nlp("jarvis switch to voice to input mode")
 changeMode3=nlp("jarvis take input as text")
 changeMode4=nlp("jarvis take input as voice")
+search1=nlp("sure i can do that. i found a few articles")
+search2=nlp("searching for something on google")
 
 # choose input as text or voice
 choice=input("Enter your mode of input 't' for text and ('v' or press enter) for voice: ")
@@ -346,7 +348,7 @@ while True:
                     keyboard.press_and_release('volume up')
                 i+=1
             response=""
-        elif (("searching for" in response.lower()) and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower())) and ("search for"in text.lower()):
+        elif (("searching for" in response.lower()) and ("on youtube" in response.lower() or "on google" in response.lower() or "on flipkart" in response.lower() or "on prime video" in response.lower() or "on primevideo" in response.lower() or "on amazon" in response.lower() or "on myntra" in response.lower() or "on ajio" in response.lower() or "on nykaa" in response.lower()) or nlp(response.lower()).similarity(search1) or nlp(response.lower()).similarity(search2)) and ("search for"in text.lower()):
             appName=""
             words=text.lower().split()
             pattern = r'(?i)\b(flipkart|google|youtube|amazon|myntra|ajio|nykaa|video|primevideo)\b'
