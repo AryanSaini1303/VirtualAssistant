@@ -1,6 +1,9 @@
 User:my name is Aryan, remember that
-Jarvis: Nice to meet you, Aryan! Is there anything else I can do for you?
+Orion: Nice to meet you, Aryan! Is there anything else I can do for you?
 
 User:i created you, remember that
-Jarvis: Yes, I do remember that. Thank you for creating me! Is there anything else I can do for you?
+Orion: Yes, I do remember that. Thank you for creating me! Is there anything else I can do for you?
+
+User:i love mechanical keyboards remember that
+Orion: okay i'll remember that.
 

@@ -50,9 +50,9 @@ def writeInMemory(text,response):
             file.write(('User:'))
     with open('Conversation.txt', 'a') as file:
         try:
-            file.write("\n"+"Jarvis: "+response+"\n\n")
+            file.write("\n"+"Orion: "+response+"\n\n")
         except UnicodeEncodeError:
-            file.write("\n"+"Jarvis: "+"\n\n")
+            file.write("\n"+"Orion: "+"\n\n")
 
 openai.api_key="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" 
 model_engine="text-davinci-003"
@@ -74,38 +74,38 @@ else:
     responseProtocol(response)
     
 #similarity strings
-closing1=nlp("thank you, goodbye jarvis")
+closing1=nlp("thank you, goodbye Orion")
 closing2=nlp("bye")
-closing3=nlp("close jarvis")
-closing4=nlp("goodbye jarvis")
-closing5=nlp("that's all for now goodbye jarvis")
-stopListening1=nlp("jarvis stop listening")
-stopListening2=nlp("jarvis stop listening for a bit")
-startListening1=nlp("jarvis start listening")
-startListening2=nlp("okay jarvis wake up")
-openApps=nlp("jarvis, please open")
+closing3=nlp("close Orion")
+closing4=nlp("goodbye Orion")
+closing5=nlp("that's all for now goodbye Orion")
+stopListening1=nlp("Orion stop listening")
+stopListening2=nlp("Orion stop listening for a bit")
+startListening1=nlp("Orion start listening")
+startListening2=nlp("okay Orion wake up")
+openApps=nlp("Orion, please open")
 searchFor=nlp("search for")
 playOnYT=nlp("play on youtube")
-setVolume=nlp("jarvis, set volume to some percent")
+setVolume=nlp("Orion, set volume to some percent")
 setVolume1=nlp("set volume to some %")
-play=nlp("jarvis play the music")
+play=nlp("Orion play the music")
 play1=nlp("play song")
-pause=nlp("jarvis pause the music")
+pause=nlp("Orion pause the music")
 pause1=nlp("pause this")
 pause2=nlp("pause song")
-mute=nlp("jarvis mute the music")
-unmute=nlp("jarvis unmute the music")
+mute=nlp("Orion mute the music")
+unmute=nlp("Orion unmute the music")
 mute1=nlp("mute")
 unmute1=nlp("unmute")
 mute2=nlp("mute it")
 unmute2=nlp("unmute it")
 scroll=nlp("scroll up/down the content a bit")
-closeWindow=nlp("jarvis please close window")
-switchWindow=nlp("jarvis please switch the window")
-switchtab=nlp("jarvis please switch tab")
+closeWindow=nlp("Orion please close window")
+switchWindow=nlp("Orion please switch the window")
+switchtab=nlp("Orion please switch tab")
 showAllTabs=nlp("show all my the tabs")
-lock=nlp("lock my desktop jarvis")
-lock1=nlp("lock my workstation jarvis")
+lock=nlp("lock my desktop Orion")
+lock1=nlp("lock my workstation Orion")
 ytFullscreen=nlp("play video on fullscreen")
 ytFullscreen1=nlp("make youtube video fullscreen")
 ytFullscreen2=nlp("youtube fullscreen")
@@ -116,10 +116,10 @@ time1=nlp("tell me the time")
 date1=nlp("tell me the date")
 increaseVolume=nlp("volume increased by ")
 decreaseVolume=nlp("volume decreased by ")
-changeMode1=nlp("jarvis switch to text to input mode")
-changeMode2=nlp("jarvis switch to voice to input mode")
-changeMode3=nlp("jarvis take input as text")
-changeMode4=nlp("jarvis take input as voice")
+changeMode1=nlp("Orion switch to text to input mode")
+changeMode2=nlp("Orion switch to voice to input mode")
+changeMode3=nlp("Orion take input as text")
+changeMode4=nlp("Orion take input as voice")
 search1=nlp("sure i can do that. i found a few articles")
 search2=nlp("searching for something on google")
 
@@ -129,7 +129,7 @@ choice=input("Enter your mode of input 't' for text and ('v' or press enter) for
 #main loop starts
 while True:
     # checks for the mode of input
-    if choice=="t":
+    if choice.lower()=="t":
         text=input("\n"+"Enter query:")
     else:
         with sr.Microphone() as source:
@@ -159,7 +159,7 @@ while True:
         with open("Conversation.txt","w") as f:
             i=0
             while i<(len(lines)):
-                if lines[i].lower().strip().startswith("remember that") or lines[i].lower().strip().startswith("remember this") or lines[i].lower().strip().endswith("remember that") or lines[i].lower().strip().endswith("remember this") or  lines[i].lower().strip().startswith("jarvis remember that") or lines[i].lower().strip().startswith("jarvis remember this"):
+                if lines[i].lower().strip().startswith("remember that") or lines[i].lower().strip().startswith("remember this") or lines[i].lower().strip().endswith("remember that") or lines[i].lower().strip().endswith("remember this") or  lines[i].lower().strip().startswith("Orion remember that") or lines[i].lower().strip().startswith("Orion remember this"):
                     f.write(lines[i])
                     f.write(lines[i+1]+"\n")
                 i+=1
@@ -300,7 +300,7 @@ while True:
         os.system("rundll32.exe user32.dll, LockWorkStation")
     elif ((nlp(text.lower())).similarity(ytFullscreen)>0.8 or (nlp(text.lower())).similarity(ytFullscreen1)>0.8 or (nlp(text.lower())).similarity(exitYTFullscreen)>0.75 or (nlp(text.lower())).similarity(ytFullscreen2)>0.75) and ("fullscreen" in text.lower() or "full screen" in text.lower()):
         pyautogui.hotkey('f')
-    elif text.lower().strip().startswith("remember that") or text.lower().strip().startswith("remember this") or text.lower().strip().endswith("remember that") or text.lower().strip().endswith("remember this") or  text.lower().strip().startswith("jarvis remember that") or text.lower().strip().startswith("jarvis remember this"):
+    elif text.lower().strip().startswith("remember that") or text.lower().strip().startswith("remember this") or text.lower().strip().endswith("remember that") or text.lower().strip().endswith("remember this") or  text.lower().strip().startswith("Orion remember that") or text.lower().strip().startswith("Orion remember this"):
         response="okay i'll remember that."
         responseProtocol(response)
         writeInMemory(text,response)
@@ -328,8 +328,8 @@ while True:
         )
         response1 = completion.choices[0].text.strip()
         words=response1.split()
-        if "Jarvis:" in words:
-            words.remove("Jarvis:")
+        if "Orion:" in words:
+            words.remove("Orion:")
         response=" ".join(words)
         
         #deciding output based on different responses by the model i.e. response
@@ -396,7 +396,7 @@ while True:
                 writeInMemory(text,response)
             webbrowser.open_new_tab(url) 
             continue
-        elif "playing" in response.lower() and "on youtube" in response.lower():
+        elif "playing" in response.lower() and "on youtube" in response.lower() and "play" in text.lower():
             start = text.lower().find("play")
             end = text.lower().find("on youtube")
             video_name = text.lower()[start+4:end].strip()
@@ -427,4 +427,4 @@ while True:
                 
         responseProtocol(response)
         with open('Conversation.txt', 'a') as file:
-            file.write(("\n"+"Jarvis: "+response+"\n\n"))
+            file.write(("\n"+"Orion: "+response+"\n\n"))
