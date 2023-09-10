@@ -37,7 +37,7 @@ import spacy
 #function to give a response
 def responseProtocol(response):
     if response!="":  
-        print(response)
+        print("Orion: "+response)
         engine.say(response)
         engine.runAndWait()
 
@@ -54,7 +54,7 @@ def writeInMemory(text,response):
         except UnicodeEncodeError:
             file.write("\n"+"Orion: "+"\n\n")
 
-openai.api_key="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" 
+openai.api_key="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"
 model_engine="text-davinci-003"
 engine = pyttsx3.init()#used to convert text to speech
 r = sr.Recognizer()#used to recognize voice and conver it to text
@@ -85,7 +85,8 @@ startListening1=nlp("Orion start listening")
 startListening2=nlp("okay Orion wake up")
 openApps=nlp("Orion, please open")
 searchFor=nlp("search for")
-playOnYT=nlp("play on youtube")
+playOnYT=nlp("playing the video on youtube")
+playOnYT1=nlp("Sure, here is the link to the song ")
 setVolume=nlp("Orion, set volume to some percent")
 setVolume1=nlp("set volume to some %")
 play=nlp("Orion play the music")
@@ -396,7 +397,7 @@ while True:
                 writeInMemory(text,response)
             webbrowser.open_new_tab(url) 
             continue
-        elif "playing" in response.lower() and "on youtube" in response.lower() and "play" in text.lower():
+        elif "playing" in response.lower() and "on youtube" in response.lower() and "play" in text.lower() and (nlp(response.lower()).similarity(playOnYT) or nlp(response.lower()).similarity(playOnYT1)):
             start = text.lower().find("play")
             end = text.lower().find("on youtube")
             video_name = text.lower()[start+4:end].strip()
